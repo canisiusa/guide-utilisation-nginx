@@ -11,15 +11,21 @@ nano /etc/nginx/conf.d/votredomaine.com.conf
 ```nginx
 server {
     listen 80;
-    server_name votre_domaine.com;
+    listen [::]:80;
 
-    location / {
-        root /var/www/mon-projet-frontend;
-        try_files $uri $uri/ /index.html;
-        index index.html index.htm;
-    }
+    server_name votre_domaine.com www.votre_domaine.com;
+
+    root /var/www/mon-projet-frontend;
+    index index.html;
+
+   location / {
+        try_files $uri $uri/ =404;
+   }
+
 }
 ```
+`sudo nginx -t`
+`sudo systemctl reload nginx`
 
 ### Installation de Certbot pour SSL
 
@@ -70,6 +76,8 @@ server {
     }
 }
 ```
+`sudo nginx -t`
+`sudo systemctl reload nginx`
 
 ### Diagnostic de l'erreur 500
 
