@@ -8,21 +8,46 @@
 ```cree le ficher conf nginx
 nano /etc/nginx/conf.d/votredomaine.com.conf
 ```
-```nginx
-server {
+```server {
     listen 80;
-    listen [::]:80;
-
-    server_name votre_domaine.com www.votre_domaine.com;
-
-    root /var/www/mon-projet-frontend;
-    index index.html;
-
-   location / {
-        try_files $uri $uri/ =404;
-   }
-
+    server_name example.com www.example.com;  # Adjust to your domain
+    # Redirect HTTP traffic to HTTPS
+    return 301 https://$server_name$request_uri;
 }
+
+server {
+    # SSL configuration
+    listen 443 ssl http2;
+    server_name example.com www.example.com;  # Adjust to your domain
+
+    ssl_certificate /path/to/your/fullchain.pem;  # Path to your SSL certificate
+    ssl_certificate_key /path/to/your/privkey.pem;  # Path to your SSL certificate key
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1.2 TLSv1.3;  # Recommended protocols
+    ssl_ciphers 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384';
+    ssl_prefer_server_ciphers on;
+
+    root /path/to/your/react/app/build;
+    index index.html;
+    try_files $uri $uri/ /index.html;
+
+    access_log /var/log/nginx/react_access.log;
+    error_log /var/log/nginx/react_error.log;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-XSS-Protection "1; mode=block";
+
+    gzip on;
+    gzip_disable "msie6";
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_http_version 1.1;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+}
+
 ```
 `sudo nginx -t`
 `sudo systemctl reload nginx`
