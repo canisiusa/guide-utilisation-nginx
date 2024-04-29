@@ -60,15 +60,17 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
  npm install @prisma/cli --save-dev
  npm install @prisma/client
 ```
+
 2. **Initialize Prisma**
    ```bash
    npx prisma init
     ```
+   
 3. **Configure your .env file:**
-
   ```bash
   DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
   ```
+
 4. **Update the schema.prisma file:**
    ```plaintext
          datasource db {
@@ -78,8 +80,23 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
       generator client {
         provider = "prisma-client-js"
       }
-  ```
+    ```
 5. **Generate the Prisma client**
-  ```bash
-    npx prisma generate
+    ```bash
+      npx prisma generate
+    ```
+
+## Dockerization
+  ```dockerfile
+      FROM node:14-alpine
+      RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+      WORKDIR /usr/src/app
+      COPY package*.json ./
+      RUN npm install
+      COPY . .
+      RUN npm run build
+      USER appuser
+      EXPOSE 3000
+      CMD ["node", "dist/main"]
   ```
+
