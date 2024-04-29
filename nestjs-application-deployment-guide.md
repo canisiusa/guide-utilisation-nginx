@@ -87,7 +87,8 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
     ```
 
 ## Dockerization
-  ```dockerfile
+1. **Create a Dockerfile in the project root:**
+     ```dockerfile
       FROM node:14-alpine
       RUN addgroup -S appgroup && adduser -S appuser -G appgroup
       WORKDIR /usr/src/app
@@ -98,5 +99,16 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
       USER appuser
       EXPOSE 3000
       CMD ["node", "dist/main"]
-  ```
+    ```
+2. **Build and push the Docker image:**
+   ```bash
+     docker build -t yourusername/nestjs-app:latest .
+    docker push yourusername/nestjs-app:latest
+   ```
+
+## Database Backup Management
+
+1. **Installer les Dépendances Nécessaires**
+2. **Configuration du Module de Planification**
+3. **Service pour la Tâche Cron**
 
