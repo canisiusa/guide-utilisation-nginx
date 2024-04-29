@@ -53,8 +53,11 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
 
 ### NestJS and Prisma Setup
 
-1. **Install Prisma CLI and client**
+1. **Create Nestjs project Install Prisma CLI and client**
  ```bash
+ npm i -g @nestjs/cli
+ nest new nestjs-app
+ cd nestjs-app
  npm install @prisma/cli --save-dev
  npm install @prisma/client
 ```
@@ -100,8 +103,8 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
     ```
 2. **Build and push the Docker image:**
    ```bash
-     docker build -t yourusername/nestjs-app:latest .
-    docker push yourusername/nestjs-app:latest
+   docker build -t yourusername/nestjs-app:latest .
+   docker push yourusername/nestjs-app:latest
    ```
 
 ## Database Backup Management
