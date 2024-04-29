@@ -12,8 +12,6 @@ This guide covers setting up a NestJS application using Docker and PostgreSQL, d
 - [Nginx Configuration](#nginx-configuration)
 - [Database Backup Management](#database-backup-management)
 - [GitHub Actions Automation](#github-actions-automation)
-- [Server Setup](#server-setup)
-- [Security Considerations](#security-considerations)
 
 ## Prerequisites
 
