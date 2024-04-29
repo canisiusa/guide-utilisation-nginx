@@ -3,12 +3,13 @@
 
 ## Configuration de Nginx
 
-### Serveur pour Application React
+### Serveur pour Framework frontend
 
 ```cree le ficher conf nginx
 nano /etc/nginx/conf.d/votredomaine.com.conf
 ```
-```server {
+```nginx
+server {
     listen 80;
     server_name example.com www.example.com;  # Adjust to your domain
     # Redirect HTTP traffic to HTTPS
@@ -78,7 +79,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-### Configuration API Nginx
+### Configuration Nginx pour ouvrir une application s'exécutant sur un port
 
 ```cree le ficher conf nginx
 nano /etc/nginx/conf.d/api.votredomaine.com.conf
@@ -104,7 +105,7 @@ server {
 `sudo nginx -t`
 `sudo systemctl reload nginx`
 
-### Diagnostic de l'erreur 500
+### Diagnostic d'erreur Nginx 500
 
 - Vérifiez les logs de Nginx : `sudo tail -f /var/log/nginx/error.log`
 - Examinez les logs de l'application
